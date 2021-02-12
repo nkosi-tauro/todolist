@@ -4,7 +4,8 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css"
     />
-    <h1>ToDo List</h1>
+
+    <br>
 
     <div class="mx-10 pt-15">
       <div class="grid gap-6 mb-8 md:grid-cols-2">
