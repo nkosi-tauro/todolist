@@ -17,7 +17,7 @@
           </div>
 
           <div>
-              <h1 class="">Todo App</h1>
+              <h1 class="text-gray-1000 text-lg font-bold">Todo App</h1>
           </div>
 
         <!-- Login/Out Coming soon -->
