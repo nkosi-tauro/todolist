@@ -49,7 +49,7 @@ $ npm run dev
 
 ## 📝 License ##
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE) file.
 
 
 Made with ❤ by <a href="https://github.com/nkosi-tauro" target="_blank">Nkosilathi Tauro</a>
