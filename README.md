@@ -13,9 +13,9 @@
 
 ## 🎯 About ##
 
-Todo app.
-CRUD Functions : Create/Read/Delete Todo's ✔
-Database : postgresql... coming soon 👩‍🍳
+Todo app.  
+CRUD Functions : Create/Read/Delete Todo's ✔  
+Database : postgresql... coming soon 👩‍🍳  
 Authentication : Passport/JWT... coming soon 👩‍🍳
 
 
