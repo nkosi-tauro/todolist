@@ -13,7 +13,8 @@
 
 ## 🎯 About ##
 
-A simple Todo app 
+A simple Todo app with Firebase Authentication.
+Database : postgresql... coming soon
 
 
 ## 🚀 Technologies ##
