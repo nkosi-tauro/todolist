@@ -5,8 +5,18 @@
       href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css"
     />
 
-    <br>
+    <br />
+    <div>
+      <button
+        @click="showModal"
+        class="bg-green-500 text-white p-2 rounded text-1xl font-semibold"
+      >
+        New Todo
+      </button>
+    </div>
+    <br />
 
+    <!-- Cards -->
     <div class="mx-10 pt-15">
       <div class="grid gap-6 mb-8 md:grid-cols-2">
         <div
@@ -20,7 +30,10 @@
           <p>
             {{ todo.desc }}
           </p>
-          <button @click="removeTodo(index)" class="float-right inline-block p-3 text-center text-white transition bg-red-500 rounded-full shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none">
+          <button
+            @click="removeTodo(index)"
+            class="float-right inline-block p-3 text-center text-white transition bg-red-500 rounded-full shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none"
+          >
             <svg
               class="w-5 h-5 text-white"
               xmlns="http://www.w3.org/2000/svg"
@@ -38,12 +51,95 @@
       </div>
     </div>
 
-    <form @submit.prevent="addTodo">
+    <!-- Modal -->
+    <div id="app" class="h-full w-full flex items-center justify-center">
+      <transition name="fade">
+        <div v-show="show_modal" class="fixed inset-0 z-30">
+          <!--       background -->
+          <div
+            v-show="show_modal"
+            @click="showModal"
+            class="bg-filter bg-white opacity-25 fixed inset-0 w-full h-full z-20"
+          ></div>
+          <!--          -->
+          <main class="flex flex-col items-center justify-center h-full w-full">
+            <transition name="fade-up-down">
+              <div
+                v-show="show_modal"
+                class="modal-wrapper inline-block flex items-center z-30"
+              >
+                <div
+                  class="modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white max-h-screen shadow-lg flex-row rounded relative"
+                >
+                <form @submit.prevent="addTodo">
+                  <div
+                    class="modal-header p-5 bg-purple-600 text-gray-900 rounded-t"
+                  >
+                    <h5 class="text-white text-md uppercase">Add new Todo</h5>
+                  </div>
+                  <div class="modal-body p-5 w-full h-full overflow-y-auto">
+                    <div
+                      class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                    >
+                    
+                      <div class="flex flex-col">
+                        
+                        <label class="leading-loose">Todo Title</label>
+                        <input
+                          v-model.trim="newTodo.title"
+                          type="text"
+                          class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                          placeholder="Todo title"
+                          required
+                        />
+                      </div>
+                      <div class="flex flex-col">
+                        <label class="leading-loose">Todo Description</label>
+                        <textarea
+                          v-model.trim="newTodo.desc"
+                          type="text"
+                          class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                          placeholder="Todo Description"
+                          required
+                        />
+                      </div>
+                    
+                    </div>
+                  </div>
+                  <div
+                    class="modal-footer py-3 px-5 border0-t text-right space-x-3"
+                  >
+                    <button
+                      class="bg-white-500 px-5 py-2 text-black"
+                      @click="showModal()"
+                    >
+                      CANCEL
+                    </button>
+
+                    <button
+                      type="submit"
+                      class="bg-green-600 px-5 py-2 text-white"
+                      
+                      
+                    >
+                      OK
+                    </button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </transition>
+          </main>
+        </div>
+      </transition>
+    </div>
+
+    <!-- <form @submit.prevent="addTodo">
       <input v-model.trim="newTodo.title" required />
       <br />
       <textarea v-model.trim="newTodo.desc" required></textarea>
       <button type="submit">Add Todo</button>
-    </form>
+    </form> -->
   </div>
 </template>
 
@@ -59,16 +155,32 @@ export default {
         });
         this.newTodo.title = "";
         this.newTodo.desc = "";
+        this.showModal()
       }
     },
 
     removeTodo(index) {
       this.todosList = this.todosList.filter((todo, i) => i != index);
     },
+    showModal() {
+      if (this.show_modal) {
+        //stop screen scrolling
+        document
+          .getElementsByTagName("html")[0]
+          .classList.remove("overflow-y-hidden");
+        this.show_modal = false;
+      } else {
+        document
+          .getElementsByTagName("html")[0]
+          .classList.add("overflow-y-hidden");
+        this.show_modal = true;
+      }
+    },
   },
 
   data() {
     return {
+      show_modal: false,
       newTodo: {
         title: "",
         desc: "",
@@ -76,17 +188,60 @@ export default {
       todosList: [
         {
           title: "Bake Some Pizza",
-          desc: "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.",
+          desc:
+            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.",
         },
         {
           title: "Go to Shops",
-          desc: "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.",
-        }
+          desc:
+            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.",
+        },
       ],
     };
   },
 };
 </script>
 
-<style>
+<style scoped>
+.modal-body {
+  max-height: 500px;
+}
+.bg-gray-800-opacity {
+  background-color: #2d374850;
+}
+@media screen and (max-width: 768px) {
+  .modal-body {
+    max-height: 400px;
+  }
+}
+
+/* animation for vue transition tag */
+
+.fade-up-down-enter-active {
+  transition: all 0.3s ease;
+}
+.fade-up-down-leave-active {
+  transition: all 0.3s ease;
+}
+.fade-up-down-enter {
+  transform: translateY(10%);
+  opacity: 0;
+}
+.fade-up-down-leave-to {
+  transform: translateY(10%);
+  opacity: 0;
+}
+
+.fade-enter-active {
+  -webkit-transition: opacity 2s;
+  transition: opacity 0.3s;
+}
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
