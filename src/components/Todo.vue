@@ -66,10 +66,10 @@
             <transition name="fade-up-down">
               <div
                 v-show="show_modal"
-                class="modal-wrapper inline-block flex items-center z-30"
+                class=" modal-wrapper inline-block flex items-center z-30"
               >
                 <div
-                  class="modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white max-h-screen shadow-lg flex-row rounded relative"
+                  class="w-100 modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white max-h-screen shadow-lg flex-row rounded relative"
                 >
                 <form @submit.prevent="addTodo">
                   <div

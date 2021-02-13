@@ -23,6 +23,7 @@
         <!-- Login/Out Coming soon -->
           <div class="hidden sm:flex sm:items-center">
             <a
+              @click="$emit('open-login-modal')"
               href="#"
               class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
               >Sign in</a
