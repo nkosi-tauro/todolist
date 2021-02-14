@@ -14,9 +14,9 @@
 ## 🎯 About ##
 
 Todo app.  
-CRUD Functions : Create/Read/Delete Todo's ✔  
+CRUD Functions : Create/Read/Delete Todo's. ✔  
 Database : postgresql... coming soon 👩‍🍳  
-Authentication : Passport/JWT... coming soon 👩‍🍳
+Authentication : Firebase. ✔
 
 
 ## 🚀 Technologies ##
@@ -24,6 +24,7 @@ Authentication : Passport/JWT... coming soon 👩‍🍳
 The following tools were used in this project:
 
 - [Vue3](https://v3.vuejs.org/)
+- [Firebase](https://firebase.google.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 
 
