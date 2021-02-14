@@ -66,65 +66,60 @@
             <transition name="fade-up-down">
               <div
                 v-show="show_modal"
-                class=" modal-wrapper inline-block flex items-center z-30"
+                class="modal-wrapper inline-block flex items-center z-30"
               >
                 <div
                   class="w-100 modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white max-h-screen shadow-lg flex-row rounded relative"
                 >
-                <form @submit.prevent="addTodo">
-                  <div
-                    class="modal-header p-5 bg-purple-600 text-gray-900 rounded-t"
-                  >
-                    <h5 class="text-white text-md uppercase">Add new Todo</h5>
-                  </div>
-                  <div class="modal-body p-5 w-full h-full overflow-y-auto">
+                  <form @submit.prevent="addTodo">
                     <div
-                      class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                      class="modal-header p-5 bg-purple-600 text-gray-900 rounded-t"
                     >
-                    
-                      <div class="flex flex-col">
-                        
-                        <label class="leading-loose">Todo Title</label>
-                        <input
-                          v-model.trim="newTodo.title"
-                          type="text"
-                          class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                          placeholder="Todo title"
-                          required
-                        />
-                      </div>
-                      <div class="flex flex-col">
-                        <label class="leading-loose">Todo Description</label>
-                        <textarea
-                          v-model.trim="newTodo.desc"
-                          type="text"
-                          class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                          placeholder="Todo Description"
-                          required
-                        />
-                      </div>
-                    
+                      <h5 class="text-white text-md uppercase">Add new Todo</h5>
                     </div>
-                  </div>
-                  <div
-                    class="modal-footer py-3 px-5 border0-t text-right space-x-3"
-                  >
-                    <button
-                      class="bg-white-500 px-5 py-2 text-black"
-                      @click="showModal()"
+                    <div class="modal-body p-5 w-full h-full overflow-y-auto">
+                      <div
+                        class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                      >
+                        <div class="flex flex-col">
+                          <label class="leading-loose">Todo Title</label>
+                          <input
+                            v-model.trim="newTodo.title"
+                            type="text"
+                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                            placeholder="Todo title"
+                            required
+                          />
+                        </div>
+                        <div class="flex flex-col">
+                          <label class="leading-loose">Todo Description</label>
+                          <textarea
+                            v-model.trim="newTodo.desc"
+                            type="text"
+                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                            placeholder="Todo Description"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="modal-footer py-3 px-5 border0-t text-right space-x-3"
                     >
-                      CANCEL
-                    </button>
+                      <button
+                        class="bg-white-500 px-5 py-2 text-black"
+                        @click="showModal()"
+                      >
+                        CANCEL
+                      </button>
 
-                    <button
-                      type="submit"
-                      class="bg-green-600 px-5 py-2 text-white"
-                      
-                      
-                    >
-                      OK
-                    </button>
-                  </div>
+                      <button
+                        type="submit"
+                        class="bg-green-600 px-5 py-2 text-white"
+                      >
+                        OK
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -155,7 +150,7 @@ export default {
         });
         this.newTodo.title = "";
         this.newTodo.desc = "";
-        this.showModal()
+        this.showModal();
       }
     },
 
