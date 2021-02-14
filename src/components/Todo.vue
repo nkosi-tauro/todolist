@@ -104,7 +104,6 @@
                           <label class="leading-loose">Todo Description</label>
                           <textarea
                             v-model.trim="newTodo.desc"
-                            type="text"
                             class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                             placeholder="Todo Description"
                             required
