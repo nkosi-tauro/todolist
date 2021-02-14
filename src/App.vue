@@ -1,4 +1,4 @@
-<template>
+<template >
   <div>
     <Header :isLoggedIn="isLoggedIn" @open-login-modal="isLoginOpen = true" />
     <Todo :isLoggedIn="isLoggedIn"/>

@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-gray-100 font-sans w-full ">
-    <div class="bg-white shadow">
+  <div class="bg-gray-100 font-sans w-full">
+    <div class="bg-white dark:bg-gray-900 dark:text-white shadow">
       <div class="container mx-auto px-4">
         <div class="flex items-center justify-between py-4">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-10 h-10 text-purple-600"
+              class="w-10 h-10 text-purple-600 dark:text-white"
               viewBox="0 0 24 24"
             >
               <path
@@ -17,40 +17,35 @@
           </div>
 
           <div>
-              <h1 class="text-gray-1000 text-lg font-bold">Todo App</h1>
+            <h1 class="text-gray-1000 text-lg font-bold">Todo App</h1>
           </div>
 
-        <!-- Login/Out -->
+          <!-- Login/Out -->
           <div class="hidden sm:flex sm:items-center">
             <a
               v-if="!isLoggedIn"
               @click="$emit('open-login-modal')"
               href="#"
-              class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-              <span>Login</span>
-              
-              </a
+              class="text-gray-800 dark:text-white text-sm font-semibold hover:text-purple-600 mr-4"
             >
+              <span>Login</span>
+            </a>
             <a
               disabled
               v-else
               href="#"
-              class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-              <span >Welcome</span>
-              </a
+              class="text-gray-800 dark:text-white text-sm font-semibold hover:text-purple-600 mr-4"
             >
+              <span>Welcome</span>
+            </a>
             <a
               v-if="isLoggedIn"
-              @click ="logout"
+              @click="logout"
               href="#"
-              class="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
-              >
-              <span>Logout</span>
-              
-              </a
+              class="text-gray-800 dark:text-white text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
             >
+              <span>Logout</span>
+            </a>
           </div>
 
           <div class="sm:hidden cursor-pointer">
@@ -72,25 +67,28 @@
 </template>
 
 <script>
-import firebase from '../utilities/firebase.js'
+import firebase from "../utilities/firebase.js";
 export default {
   name: "Header",
   props: {
-    "isLoggedIn": Boolean,
+    isLoggedIn: Boolean,
   },
   methods: {
-    logout(){
-      firebase.auth().signOut()
-      .then(res=> {
-        console.log("logged out")
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
-  }
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then((res) => {
+          console.log("logged out");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+
 </style>

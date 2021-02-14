@@ -6,10 +6,17 @@
     />
 
     <br />
+    <button
+      class="bg-white float-right border-black border dark:bg-gray-800 dark:border-transparent p-2 rounded-full text-1xl font-semibold"
+    >
+      <span>🌑</span>
+    </button>
+
+    <br />
     <div v-if="!isLoggedIn" class="text-center">
       <div
         disabled
-        class="bg-red-500 text-white p-2 rounded text-1xl font-semibold"
+        class="bg-red-500 dark:bg-pink-800 text-white p-2 rounded text-1xl m-auto w-1/2 font-semibold"
       >
         Please login to add a new task.
       </div>
@@ -17,7 +24,7 @@
     <div v-else>
       <button
         @click="showModal"
-        class="bg-green-500 text-white p-2 rounded text-1xl font-semibold"
+        class="bg-green-500 dark:bg-white dark:text-black text-white p-2 rounded text-1xl font-semibold"
       >
         New Todo
       </button>
@@ -31,7 +38,7 @@
         <div
           v-for="(todo, index) in todosList"
           :key="index"
-          class="min-w-0 p-4 text-white bg-purple-600 rounded-lg shadow-xs"
+          class="min-w-0 p-4 text-white dark:bg-black bg-purple-600 rounded-lg shadow-xs"
         >
           <h4 class="mb-4 font-semibold">
             {{ todo.title }}
@@ -41,7 +48,7 @@
           </p>
           <button
             @click="removeTodo(index)"
-            class="float-right inline-block p-3 text-center text-white transition bg-red-500 rounded-full shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none"
+            class="float-right inline-block p-3 text-center text-white transition bg-red-500 dark:bg-pink-800 rounded-full shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none"
           >
             <svg
               class="w-5 h-5 text-white"
@@ -61,14 +68,14 @@
     </div>
 
     <!-- Modal -->
-    <div id="app" class="h-full w-full flex items-center justify-center">
+    <div class="h-full w-full flex items-center justify-center">
       <transition name="fade">
         <div v-show="show_modal" class="fixed inset-0 z-30">
           <!--       background -->
           <div
             v-show="show_modal"
             @click="showModal"
-            class="bg-filter bg-white opacity-25 fixed inset-0 w-full h-full z-20"
+            class="bg-filter opacity-25 fixed inset-0 w-full h-full z-20"
           ></div>
           <!--          -->
           <main class="flex flex-col items-center justify-center h-full w-full">
@@ -78,17 +85,17 @@
                 class="modal-wrapper inline-block flex items-center z-30"
               >
                 <div
-                  class="w-100 modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white max-h-screen shadow-lg flex-row rounded relative"
+                  class="w-100 modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white dark:bg-gray-700 max-h-screen shadow-lg flex-row rounded relative"
                 >
                   <form @submit.prevent="addTodo">
                     <div
-                      class="modal-header p-5 bg-purple-600 text-gray-900 rounded-t"
+                      class="modal-header p-5 bg-purple-600 dark:bg-gray-700 text-gray-900 rounded-t"
                     >
                       <h5 class="text-white text-md uppercase">Add new Todo</h5>
                     </div>
                     <div class="modal-body p-5 w-full h-full overflow-y-auto">
                       <div
-                        class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                        class="py-8 text-base leading-6 space-y-4 text-gray-700 dark:text-white sm:text-lg sm:leading-7"
                       >
                         <div class="flex flex-col">
                           <label class="leading-loose">Todo Title</label>
@@ -115,7 +122,7 @@
                       class="modal-footer py-3 px-5 border0-t text-right space-x-3"
                     >
                       <button
-                        class="bg-white-500 px-5 py-2 text-black"
+                        class="bg-white dark:bg-black dark:text-white px-5 py-2 text-black"
                         @click="showModal()"
                       >
                         CANCEL
@@ -123,7 +130,7 @@
 
                       <button
                         type="submit"
-                        class="bg-green-600 px-5 py-2 text-white"
+                        class="bg-green-600 dark:bg-white dark:text-black px-5 py-2 border-black text-white"
                       >
                         OK
                       </button>
@@ -250,4 +257,6 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
+
 </style>

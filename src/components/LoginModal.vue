@@ -6,9 +6,9 @@
     ></section>
     <div class="absolute inset-0">
       <div class="flex h-full">
-        <div class="z-30 m-auto bg-white p-2 rounded shadow w-1/2">
-          <div class="p-2 border">
-            <div class="modal-header p-5 bg-purple-600 text-gray-900 rounded-t">
+        <div class="z-30 m-auto bg-white dark:text-white dark:bg-gray-800 p-2 rounded shadow w-1/2">
+          <div class="p-2 border dark:border-transparent">
+            <div class="modal-header p-5 bg-purple-600 dark:bg-pink-800 text-gray-900 rounded-t">
               <h5 class="text-white text-center text-md uppercase">Login</h5>
             </div>
             <GoogleLogin @close-login-from-google="close"/>
@@ -36,7 +36,7 @@
               <div class="my-4">
                 <button
                   type="submit"
-                  class="w-full rounded shadow-md bg-gradient-to-r from-green-600 to-green-900 text-white p-3"
+                  class="w-full rounded shadow-md dark:bg-pink-800 bg-purple-600 text-white p-3"
                 >
                   <span v-if="!isLoading"> Login </span>
                   <span v-else>⏳</span>
