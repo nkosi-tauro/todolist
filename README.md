@@ -24,7 +24,7 @@ Authentication : Passport/JWT... coming soon 👩‍🍳
 The following tools were used in this project:
 
 - [Vue3](https://v3.vuejs.org/)
-<!-- - [Firebase](https://firebase.google.com/) -->
+- [Tailwind CSS](https://tailwindcss.com/)
 
 
 
