@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header :isLoggedIn="isLoggedIn" @open-login-modal="isLoginOpen = true" />
-    <Todo />
+    <Todo :isLoggedIn="isLoggedIn"/>
     <LoginModal v-if="isLoginOpen" @close-login-modal="isLoginOpen= false"/>
   </div>
 </template>

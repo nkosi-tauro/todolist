@@ -6,7 +6,15 @@
     />
 
     <br />
-    <div>
+    <div v-if="!isLoggedIn" class="text-center">
+      <button
+        disabled
+        class="bg-red-500 text-white p-2 rounded text-1xl font-semibold"
+      >
+        Please login to add a new task.
+      </button>
+    </div>
+    <div v-else>
       <button
         @click="showModal"
         class="bg-green-500 text-white p-2 rounded text-1xl font-semibold"
@@ -14,6 +22,7 @@
         New Todo
       </button>
     </div>
+
     <br />
 
     <!-- Cards -->
@@ -141,6 +150,9 @@
 <script>
 export default {
   name: "Todo",
+  props: {
+    isLoggedIn: Boolean,
+  },
   methods: {
     addTodo() {
       if (this.newTodo.title !== "" && this.newTodo.desc !== "") {
