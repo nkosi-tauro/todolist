@@ -7,12 +7,12 @@
 
     <br />
     <div v-if="!isLoggedIn" class="text-center">
-      <button
+      <div
         disabled
         class="bg-red-500 text-white p-2 rounded text-1xl font-semibold"
       >
         Please login to add a new task.
-      </button>
+      </div>
     </div>
     <div v-else>
       <button
