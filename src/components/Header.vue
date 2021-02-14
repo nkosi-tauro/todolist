@@ -23,12 +23,22 @@
         <!-- Login/Out -->
           <div class="hidden sm:flex sm:items-center">
             <a
+              v-if="!isLoggedIn"
               @click="$emit('open-login-modal')"
               href="#"
               class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
               >
-              <span v-if="!isLoggedIn">Login</span>
-              <span v-else>Welcome</span>
+              <span>Login</span>
+              
+              </a
+            >
+            <a
+              disabled
+              v-else
+              href="#"
+              class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
+              >
+              <span >Welcome</span>
               </a
             >
             <a
