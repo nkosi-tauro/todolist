@@ -20,19 +20,27 @@
               <h1 class="text-gray-1000 text-lg font-bold">Todo App</h1>
           </div>
 
-        <!-- Login/Out Coming soon -->
+        <!-- Login/Out -->
           <div class="hidden sm:flex sm:items-center">
             <a
               @click="$emit('open-login-modal')"
               href="#"
               class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >Login in</a
+              >
+              <span v-if="!isLoggedIn">Login</span>
+              <span v-else>Welcome</span>
+              </a
             >
-            <!-- <a
+            <a
+              v-if="isLoggedIn"
+              @click ="logout"
               href="#"
               class="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
-              >Sign up</a
-            > -->
+              >
+              <span>Logout</span>
+              
+              </a
+            >
           </div>
 
           <div class="sm:hidden cursor-pointer">
@@ -54,8 +62,23 @@
 </template>
 
 <script>
+import firebase from '../utilities/firebase.js'
 export default {
   name: "Header",
+  props: {
+    "isLoggedIn": Boolean,
+  },
+  methods: {
+    logout(){
+      firebase.auth().signOut()
+      .then(res=> {
+        console.log("logged out")
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  }
 };
 </script>
 
