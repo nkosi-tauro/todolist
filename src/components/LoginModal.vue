@@ -20,6 +20,7 @@
                   v-model="email"
                   class="rounded shadow p-2 w-full"
                   placeholder="Enter Username or email"
+                  autocomplete="username"
                 />
               </div>
               <div class="my-4">
@@ -29,6 +30,7 @@
                   type="password"
                   class="rounded shadow p-2 w-full"
                   placeholder="Enter your password"
+                  autocomplete="current-password"
                 />
               </div>
               <div class="my-4">
