@@ -15,7 +15,7 @@
 
 Todo app.  
 CRUD Functions : Create/Read/Delete Todo's. ✔  
-localStorage ✔💾
+localStorage ✔💾  
 Authentication : Firebase. ✔
 
 
