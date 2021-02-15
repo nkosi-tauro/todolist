@@ -17,8 +17,9 @@
               <div class="my-4">
                 <label>Email or Username</label>
                 <input
+                 
                   v-model="email"
-                  class="rounded shadow p-2 w-full"
+                  class="rounded shadow p-2 w-full dark:text-black"
                   placeholder="Enter Username or email"
                   autocomplete="username"
                 />
@@ -28,7 +29,7 @@
                 <input
                   v-model="password"
                   type="password"
-                  class="rounded shadow p-2 w-full"
+                  class="rounded shadow p-2 w-full dark:text-black"
                   placeholder="Enter your password"
                   autocomplete="current-password"
                 />

@@ -143,13 +143,6 @@
         </div>
       </transition>
     </div>
-
-    <!-- <form @submit.prevent="addTodo">
-      <input v-model.trim="newTodo.title" required />
-      <br />
-      <textarea v-model.trim="newTodo.desc" required></textarea>
-      <button type="submit">Add Todo</button>
-    </form> -->
   </div>
 </template>
 
@@ -159,6 +152,16 @@ export default {
   props: {
     isLoggedIn: Boolean,
   },
+  mounted() {
+    if (localStorage.getItem("todosList")) {
+      try {
+        this.todosList = JSON.parse(localStorage.getItem("todosList"));
+      } catch (e) {
+        localStorage.removeItem("todoList");
+      }
+    }
+  },
+
   methods: {
     addTodo() {
       if (this.newTodo.title !== "" && this.newTodo.desc !== "") {
@@ -168,13 +171,20 @@ export default {
         });
         this.newTodo.title = "";
         this.newTodo.desc = "";
+        this.saveTodo();
         this.showModal();
       }
     },
 
     removeTodo(index) {
       this.todosList = this.todosList.filter((todo, i) => i != index);
+      this.saveTodo();
     },
+    saveTodo() {
+      const parsed = JSON.stringify(this.todosList);
+      localStorage.setItem("todosList", parsed);
+    },
+
     showModal() {
       if (this.show_modal) {
         //stop screen scrolling
@@ -195,19 +205,13 @@ export default {
     return {
       show_modal: false,
       newTodo: {
-        title: "",
-        desc: "",
+        title: null,
+        desc: null,
       },
       todosList: [
         {
-          title: "Bake Some Pizza",
-          desc:
-            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.",
-        },
-        {
-          title: "Go to Shops",
-          desc:
-            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.",
+          title: null,
+          desc: null,
         },
       ],
     };
@@ -257,6 +261,4 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-
-
 </style>
