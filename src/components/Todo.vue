@@ -7,9 +7,11 @@
 
     <br />
     <button
+      @click="isDarkMode"
       class="bg-white float-right border-black border dark:bg-gray-800 dark:border-transparent p-2 rounded-full text-1xl font-semibold"
     >
-      <span>🌑</span>
+      <span v-if="!dark_mode">🌑</span>
+      <span v-else>☀</span>
     </button>
 
     <br />
@@ -199,11 +201,25 @@ export default {
         this.show_modal = true;
       }
     },
+    isDarkMode(){
+      const root = document.getElementsByTagName('html')[0];
+      if(this.dark_mode == false){
+        root.setAttribute('class', 'dark')
+        this.dark_mode = true
+      }
+      else if(this.dark_mode == true){
+        root.classList.remove('dark')
+        this.dark_mode = false
+      }
+      
+
+    },
   },
 
   data() {
     return {
       show_modal: false,
+      dark_mode : false,
       newTodo: {
         title: null,
         desc: null,
