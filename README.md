@@ -15,7 +15,7 @@
 
 Todo app.  
 CRUD Functions : Create/Read/Delete Todo's. ✔  
-Database : postgresql... coming soon 👩‍🍳  
+localStorage ✔💾
 Authentication : Firebase. ✔
 
 
@@ -49,6 +49,21 @@ $ npm install
 $ npm run dev
 
 # The server will initialize in the <http://localhost:3000>
+```
+
+Firebase Setup
+```bash
+# Head over to https://firebase.google.com/ to get your config keys and replace firebase.js accordingly
+
+const firebaseConfig = {
+    apiKey: ,
+    authDomain: ,
+    databaseURL: ,
+    projectId: ,
+    storageBucket:,
+    messagingSenderId:,
+    appId: ,
+};
 ```
 
 ## 📝 License ##
