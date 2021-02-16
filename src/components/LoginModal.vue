@@ -6,18 +6,21 @@
     ></section>
     <div class="absolute inset-0">
       <div class="flex h-full">
-        <div class="z-30 m-auto bg-white dark:text-white dark:bg-gray-800 p-2 rounded shadow w-1/2">
+        <div
+          class="z-30 m-auto bg-white dark:text-white dark:bg-gray-800 p-2 rounded shadow w-1/2"
+        >
           <div class="p-2 border dark:border-transparent">
-            <div class="modal-header p-5 bg-purple-600 dark:bg-pink-800 text-gray-900 rounded-t">
+            <div
+              class="modal-header p-5 bg-purple-600 dark:bg-pink-800 text-gray-900 rounded-t"
+            >
               <h5 class="text-white text-center text-md uppercase">Login</h5>
             </div>
-            <GoogleLogin @close-login-from-google="close"/>
+            <GoogleLogin @close-login-from-google="close" />
             <p class="my-3 text-center">Or</p>
             <form @submit.prevent="submit" class="p-2 my-2">
               <div class="my-4">
                 <label>Email or Username</label>
                 <input
-                 
                   v-model="email"
                   class="rounded shadow p-2 w-full dark:text-black"
                   placeholder="Enter Username or email"
@@ -52,42 +55,40 @@
 </template>
 
 <script>
-import GoogleLogin from './Login/GoogleLogin.vue'
+import GoogleLogin from "./Login/GoogleLogin.vue";
 import firebase from "../utilities/firebase.js";
+import { ref } from "vue";
 
 export default {
   name: "Login Modal",
   components: {
-    GoogleLogin
+    GoogleLogin,
   },
+  setup(props, {emit}) {
+    const email = ref("");
+    const password = ref("");
+    const isLoading = ref(false);
 
-  methods: {
-    submit() {
-      this.isLoading = true;
+    function submit() {
+      isLoading.value = true;
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .signInWithEmailAndPassword(email.value, password.value)
         .then((res) => {
-          (this.email = ""), (this.password = ""), (this.isLoading = false);
-          this.close();
+          (email.value = ""), (password.value = ""), (isLoading.value= false);
+          close();
         })
         .catch((err) => {
           // console.log(err)
-          this.isLoading = false;
+          isLoading.value= false;
         });
-    },
-    close() {
-      this.$emit("close-login-modal");
-    }
-  
-  },
-  data() {
-    return {
-      email: "",
-      password: "",
-      isLoading: false,
     };
-  },
+    function close() {
+      emit("close-login-modal");
+    }
+
+    return {email, isLoading, password, submit, close}
+  }
 };
 </script>
 

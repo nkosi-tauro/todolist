@@ -149,89 +149,89 @@
 </template>
 
 <script>
+// Compostion API
+import { onMounted, ref } from "vue";
 export default {
   name: "Todo",
   props: {
     isLoggedIn: Boolean,
   },
-  mounted() {
-    if (localStorage.getItem("todosList")) {
-      try {
-        this.todosList = JSON.parse(localStorage.getItem("todosList"));
-      } catch (e) {
-        localStorage.removeItem("todoList");
-      }
-    }
-  },
+  setup() {
+    // data
+    const show_modal = ref(false)
+    const dark_mode = ref(false)
+    const newTodo = ref({
+      title: null,
+      desc: null,
+    });
+    const todosList = ref([
+      {
+        title: null,
+        desc: null,
+      },
+    ]);
 
-  methods: {
-    addTodo() {
-      if (this.newTodo.title !== "" && this.newTodo.desc !== "") {
-        this.todosList.push({
-          title: this.newTodo.title,
-          desc: this.newTodo.desc,
+    onMounted(() => {
+      if (localStorage.getItem("todosList")) {
+        try {
+          todosList.value = JSON.parse(localStorage.getItem("todosList"));
+        } catch (e) {
+          localStorage.removeItem("todosList");
+        }
+      }
+    });
+
+    // Methods
+    function addTodo() {
+      if (newTodo.value.title !== "" && newTodo.value.desc !== "") {
+        todosList.value.push({
+          title: newTodo.value.title,
+          desc: newTodo.value.desc,
         });
-        this.newTodo.title = "";
-        this.newTodo.desc = "";
-        this.saveTodo();
-        this.showModal();
+        newTodo.value.title = "";
+        newTodo.value.desc = "";
+        saveTodo();
+        showModal();
       }
-    },
+    };
 
-    removeTodo(index) {
-      this.todosList = this.todosList.filter((todo, i) => i != index);
-      this.saveTodo();
-    },
-    saveTodo() {
-      const parsed = JSON.stringify(this.todosList);
+    function saveTodo() {
+      const parsed = JSON.stringify(todosList.value);
       localStorage.setItem("todosList", parsed);
-    },
+    };
 
-    showModal() {
-      if (this.show_modal) {
+    function removeTodo(index) {
+      todosList.value = todosList.value.filter((todo, i) => i != index);
+      saveTodo();
+    };
+        function showModal() {
+      if (show_modal.value) {
         //stop screen scrolling
         document
           .getElementsByTagName("html")[0]
           .classList.remove("overflow-y-hidden");
-        this.show_modal = false;
+        show_modal.value = false;
       } else {
         document
           .getElementsByTagName("html")[0]
           .classList.add("overflow-y-hidden");
-        this.show_modal = true;
+        show_modal.value = true;
       }
-    },
-    isDarkMode(){
-      const root = document.getElementsByTagName('html')[0];
-      if(this.dark_mode == false){
-        root.setAttribute('class', 'dark')
-        this.dark_mode = true
-      }
-      else if(this.dark_mode == true){
-        root.classList.remove('dark')
-        this.dark_mode = false
-      }
-      
-
-    },
-  },
-
-  data() {
-    return {
-      show_modal: false,
-      dark_mode : false,
-      newTodo: {
-        title: null,
-        desc: null,
-      },
-      todosList: [
-        {
-          title: null,
-          desc: null,
-        },
-      ],
     };
-  },
+
+    function isDarkMode() {
+      const root = document.getElementsByTagName("html")[0];
+      if (dark_mode.value == false) {
+        root.setAttribute("class", "dark");
+        dark_mode.value = true;
+      } else if (dark_mode.value == true) {
+        root.classList.remove("dark");
+        dark_mode.value = false;
+      }
+    };
+
+    return { todosList, newTodo, removeTodo, addTodo, isDarkMode, showModal, show_modal, dark_mode, saveTodo };
+  }
 };
 </script>
 

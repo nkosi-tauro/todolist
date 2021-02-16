@@ -36,7 +36,7 @@
               href="#"
               class="text-gray-800 dark:text-white text-sm font-semibold hover:text-purple-600 mr-4"
             >
-              <span>Welcome</span>
+              <span>Welcome </span>
             </a>
             <a
               v-if="isLoggedIn"
@@ -72,9 +72,10 @@ export default {
   name: "Header",
   props: {
     isLoggedIn: Boolean,
+  
   },
-  methods: {
-    logout() {
+  setup() {
+    function logout() {
       firebase
         .auth()
         .signOut()
@@ -84,11 +85,13 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
+    }
+
+    return {logout}
   },
+
 };
 </script>
 
 <style scoped>
-
 </style>
