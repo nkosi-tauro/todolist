@@ -1,6 +1,6 @@
 <template >
   <div>
-    <Header :isLoggedIn="isLoggedIn"  @open-login-modal="isLoginOpen = true" />
+    <Header :isLoggedIn="isLoggedIn" :authUser="authUser" @open-login-modal="isLoginOpen = true" />
     <Todo :isLoggedIn="isLoggedIn" />
     <LoginModal v-if="isLoginOpen" @close-login-modal="isLoginOpen = false" />
   </div>

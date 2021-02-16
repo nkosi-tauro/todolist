@@ -36,7 +36,7 @@
               href="#"
               class="text-gray-800 dark:text-white text-sm font-semibold hover:text-purple-600 mr-4"
             >
-              <span>Welcome </span>
+              <span>Welcome {{authUser.displayName}}</span>
             </a>
             <a
               v-if="isLoggedIn"
@@ -72,6 +72,7 @@ export default {
   name: "Header",
   props: {
     isLoggedIn: Boolean,
+    authUser: {}
   
   },
   setup() {
