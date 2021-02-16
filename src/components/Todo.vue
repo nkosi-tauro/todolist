@@ -65,6 +65,12 @@
               />
             </svg>
           </button>
+          <button
+            @click="editTodo(index)"
+            class="float-right mr-1 inline-block p-3 text-center text-white transition bg-green-500 dark:bg-indigo-800 rounded shadow ripple hover:shadow-lg focus:outline-none"
+          >
+            Edit
+          </button>
         </div>
       </div>
     </div>
@@ -84,7 +90,7 @@
             <transition name="fade-up-down">
               <div
                 v-show="show_modal"
-                class="modal-wrapper inline-block flex items-center z-30"
+                class="modal-wrapper flex items-center z-30"
               >
                 <div
                   class="w-100 modal max-w-md mx-auto xl:max-w-5xl lg:max-w-5xl md:max-w-2xl bg-white dark:bg-gray-700 max-h-screen shadow-lg flex-row rounded relative"
@@ -124,6 +130,12 @@
                       class="modal-footer py-3 px-5 border0-t text-right space-x-3"
                     >
                       <button
+                        class="bg-blue-600 dark:bg-yellow-700 dark:text-white px-5 py-2 text-white"
+                        @click="updateTodo(index)"
+                      >
+                        UPDATE
+                      </button>
+                      <button
                         class="bg-white dark:bg-black dark:text-white px-5 py-2 text-black"
                         @click="showModal()"
                       >
@@ -158,8 +170,8 @@ export default {
   },
   setup() {
     // data
-    const show_modal = ref(false)
-    const dark_mode = ref(false)
+    const show_modal = ref(false);
+    const dark_mode = ref(false);
     const newTodo = ref({
       title: null,
       desc: null,
@@ -183,7 +195,7 @@ export default {
 
     // Methods
     function addTodo() {
-      if (newTodo.value.title !== "" && newTodo.value.desc !== "") {
+      if (newTodo.value.title !== null && newTodo.value.desc !== null) {
         todosList.value.push({
           title: newTodo.value.title,
           desc: newTodo.value.desc,
@@ -193,18 +205,44 @@ export default {
         saveTodo();
         showModal();
       }
-    };
+    }
 
     function saveTodo() {
       const parsed = JSON.stringify(todosList.value);
       localStorage.setItem("todosList", parsed);
-    };
+    }
 
     function removeTodo(index) {
       todosList.value = todosList.value.filter((todo, i) => i != index);
       saveTodo();
-    };
-        function showModal() {
+    }
+    let getTodo;
+    function editTodo(index) {
+      const todoIndex = todosList.value.findIndex((todo, i) => i === index);
+      // display old data in input fields
+      newTodo.value.title =todosList.value[index].title;
+      newTodo.value.desc = todosList.value[index].desc;
+      showModal();
+
+      getTodo = todoIndex;
+      return getTodo;
+    }
+
+    function updateTodo() {
+      // get Stored Todos object
+      const getTodos = localStorage.getItem("todosList");
+      const parsedTodos = JSON.parse(getTodos);
+      // Update Todos
+      parsedTodos[getTodo].title = newTodo.value.title;
+      parsedTodos[getTodo].desc = newTodo.value.desc;
+      const updatedTodosForStorage = JSON.stringify(parsedTodos);
+      if (newTodo.value.title !== null && newTodo.value.desc !== null) {
+        removeTodo(getTodo);
+      }
+      localStorage.setItem("todosList", updatedTodosForStorage);
+    }
+
+    function showModal() {
       if (show_modal.value) {
         //stop screen scrolling
         document
@@ -217,7 +255,7 @@ export default {
           .classList.add("overflow-y-hidden");
         show_modal.value = true;
       }
-    };
+    }
 
     function isDarkMode() {
       const root = document.getElementsByTagName("html")[0];
@@ -228,10 +266,22 @@ export default {
         root.classList.remove("dark");
         dark_mode.value = false;
       }
-    };
+    }
 
-    return { todosList, newTodo, removeTodo, addTodo, isDarkMode, showModal, show_modal, dark_mode, saveTodo };
-  }
+    return {
+      todosList,
+      newTodo,
+      removeTodo,
+      addTodo,
+      isDarkMode,
+      showModal,
+      show_modal,
+      dark_mode,
+      saveTodo,
+      editTodo,
+      updateTodo,
+    };
+  },
 };
 </script>
 
