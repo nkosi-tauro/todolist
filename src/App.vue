@@ -11,7 +11,7 @@ import Header from "./components/Header.vue";
 import Todo from "./components/Todo.vue";
 import LoginModal from "./components/LoginModal.vue";
 import firebase from './utilities/firebase.js'
-import {onMounted,ref} from 'vue'
+import {onMounted,toRefs, reactive} from 'vue'
 
 export default {
   name: "App",
@@ -23,28 +23,30 @@ export default {
 
   setup() {
     // data
-    const isLoginOpen= ref(false)
-    const isLoggedIn = ref(false)
-    const authUser = ref({})
+    const state = reactive({
+      isLoginOpen : false,
+      isLoggedIn : false,
+      authUser : {}
+    })
 
     // Lifecycle
     onMounted(() => {
       firebase.auth().onAuthStateChanged((user) =>{
         if(user){
-          isLoggedIn.value = true;
-          authUser.value = user;
+          state.isLoggedIn = true;
+          state.authUser = user;
 
         }
         else{
           // no user signed in
-          isLoggedIn.value = false;
-          authUser.value = {};
+          state.isLoggedIn = false;
+          state.authUser = {};
           
         }
       })
     })
 
-    return {isLoginOpen, isLoggedIn, authUser}
+    return {...toRefs(state)}
   }
 };
 </script>

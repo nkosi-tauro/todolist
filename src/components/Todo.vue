@@ -165,7 +165,7 @@
 
 <script>
 // Compostion API
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, toRefs } from "vue";
 export default {
   name: "Todo",
   props: {
@@ -173,23 +173,23 @@ export default {
   },
   setup() {
     // data
-    const show_modal = ref(false);
-    const dark_mode = ref(false);
-    const newTodo = ref({
-      title: null,
-      desc: null,
-    });
-    const todosList = ref([
-      {
+    const state = reactive({
+      dark_mode : false,
+      show_modal: false,
+      newTodo : {
         title: null,
-        desc: null,
+        desc: null
       },
-    ]);
+      todosList : {
+        title: "",
+        desc: ""        
+      }
+    })
 
     onMounted(() => {
       if (localStorage.getItem("todosList")) {
         try {
-          todosList.value = JSON.parse(localStorage.getItem("todosList"));
+          state.todosList = JSON.parse(localStorage.getItem("todosList"));
         } catch (e) {
           localStorage.removeItem("todosList");
         }
@@ -198,33 +198,33 @@ export default {
 
     // Methods
     function addTodo() {
-      if (newTodo.value.title !== null && newTodo.value.desc !== null) {
-        todosList.value.push({
-          title: newTodo.value.title,
-          desc: newTodo.value.desc,
+      if (state.newTodo.title !== null && state.newTodo.desc !== null) {
+        state.todosList.push({
+          title: state.newTodo.title,
+          desc: state.newTodo.desc,
         });
-        newTodo.value.title = "";
-        newTodo.value.desc = "";
+        state.newTodo.title = "";
+        state.newTodo.desc = "";
         saveTodo();
         showModal();
       }
     }
 
     function saveTodo() {
-      const parsed = JSON.stringify(todosList.value);
+      const parsed = JSON.stringify(state.todosList);
       localStorage.setItem("todosList", parsed);
     }
 
     function removeTodo(index) {
-      todosList.value = todosList.value.filter((todo, i) => i != index);
+      state.todosList = state.todosList.filter((todo, i) => i != index);
       saveTodo();
     }
     let getTodo;
     function editTodo(index) {
-      const todoIndex = todosList.value.findIndex((todo, i) => i === index);
+      const todoIndex = state.todosList.findIndex((todo, i) => i === index);
       // display old data in input fields
-      newTodo.value.title = todosList.value[index].title;
-      newTodo.value.desc = todosList.value[index].desc;
+      state.newTodo.title = state.todosList[index].title;
+      state.newTodo.desc = state.todosList[index].desc;
       showModal();
 
       getTodo = todoIndex;
@@ -236,50 +236,47 @@ export default {
       const getTodos = localStorage.getItem("todosList");
       const parsedTodos = JSON.parse(getTodos);
       // Update Todos
-      parsedTodos[getTodo].title = newTodo.value.title;
-      parsedTodos[getTodo].desc = newTodo.value.desc;
+      parsedTodos[getTodo].title = state.newTodo.title;
+      parsedTodos[getTodo].desc = state.newTodo.desc;
       const updatedTodosForStorage = JSON.stringify(parsedTodos);
-      if (newTodo.value.title !== null && newTodo.value.desc !== null) {
+      if (state.newTodo.title !== null && state.newTodo.desc !== null) {
         removeTodo(getTodo);
       }
       localStorage.setItem("todosList", updatedTodosForStorage);
     }
 
     function showModal() {
-      if (show_modal.value) {
+      if (state.show_modal) {
         //stop screen scrolling
         document
           .getElementsByTagName("html")[0]
           .classList.remove("overflow-y-hidden");
-        show_modal.value = false;
+        state.show_modal = false;
       } else {
         document
           .getElementsByTagName("html")[0]
           .classList.add("overflow-y-hidden");
-        show_modal.value = true;
+        state.show_modal = true;
       }
     }
 
     function isDarkMode() {
       const root = document.getElementsByTagName("html")[0];
-      if (dark_mode.value == false) {
+      if (state.dark_mode == false) {
         root.setAttribute("class", "dark");
-        dark_mode.value = true;
-      } else if (dark_mode.value == true) {
+        state.dark_mode = true;
+      } else if (state.dark_mode == true) {
         root.classList.remove("dark");
-        dark_mode.value = false;
+        state.dark_mode = false;
       }
     }
 
     return {
-      todosList,
-      newTodo,
+      ...toRefs(state),
       removeTodo,
       addTodo,
       isDarkMode,
       showModal,
-      show_modal,
-      dark_mode,
       saveTodo,
       editTodo,
       updateTodo,

@@ -57,7 +57,7 @@
 <script>
 import GoogleLogin from "./Login/GoogleLogin.vue";
 import firebase from "../utilities/firebase.js";
-import { ref } from "vue";
+import { reactive, toRefs } from "vue";
 
 export default {
   name: "Login Modal",
@@ -65,29 +65,31 @@ export default {
     GoogleLogin,
   },
   setup(props, {emit}) {
-    const email = ref("");
-    const password = ref("");
-    const isLoading = ref(false);
+    const state = reactive({
+      email : "",
+      password : "",
+      isLoading : false
+    })
 
     function submit() {
-      isLoading.value = true;
+      state.isLoading = true;
       firebase
         .auth()
-        .signInWithEmailAndPassword(email.value, password.value)
+        .signInWithEmailAndPassword(state.email, state.password)
         .then((res) => {
-          (email.value = ""), (password.value = ""), (isLoading.value= false);
+          (state.email = ""), (state.password = ""), (state.isLoading= false);
           close();
         })
         .catch((err) => {
           // console.log(err)
-          isLoading.value= false;
+          state.isLoading= false;
         });
     };
     function close() {
       emit("close-login-modal");
     }
 
-    return {email, isLoading, password, submit, close}
+    return {...toRefs(state), submit, close}
   }
 };
 </script>
